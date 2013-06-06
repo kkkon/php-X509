@@ -37,5 +37,7 @@ define( 'APPLE_CACERT_FILEPATH', dirname(__FILE__) . '/cert/AppleIncRootCertific
 
 define( 'ITS_INTERMEDIATE_FILEPATH', dirname(__FILE__) . '/cert/itunes_intermediate.pem');
 
+define( 'ITS_PURCHASERECEIPT_FILEPATH', dirname(__FILE__) . '/cert/itunes_PurchaseReceiptCertificate.pem');
+
 ?>
 

@@ -80,6 +80,15 @@ class X509Test extends PHPUnit_Framework_TestCase
         $checkResult = X509certPathValidate( null, $certAnchor, $certRoot );
         $this->assertTrue( $checkResult );
     }
+
+    public function testX509certPathValidateFull()
+    {
+        $cert = file_get_contents( ITS_PURCHASERECEIPT_FILEPATH );
+        $certAnchor = file_get_contents( ITS_INTERMEDIATE_FILEPATH );
+        $certRoot = file_get_contents( APPLE_CACERT_FILEPATH );
+        $checkResult = X509certPathValidate( $cert, $certAnchor, $certRoot );
+        $this->assertTrue( $checkResult );
+    }
     
 }//CLASS
 
