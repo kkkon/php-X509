@@ -55,7 +55,7 @@ class X509Test extends PHPUnit_Framework_TestCase
             $ret = X509extractSignature($der);
             if ( FALSE === $ret )
             {
-                echo 'extractSignature fail';
+                echo 'X509extractSignature fail';
                 return;
             }
             else
