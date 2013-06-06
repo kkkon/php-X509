@@ -56,7 +56,7 @@ function X509checkSignature( $decodedCert, $certPEM )
     {
         $decodedSignature = null;
         {
-            $ret = extractSignatureValue($decrypted);
+            $ret = X509extractSignatureValue($decrypted);
             if ( FALSE === $ret )
             {
                 echo 'signature value parse fail' . PHP_EOL;
@@ -443,7 +443,7 @@ function X509extractSignature($der)
     return $result;
 }
 
-function extractSignatureValue($der)
+function X509extractSignatureValue($der)
 {
     $result = array();
 
