@@ -89,7 +89,7 @@ class X509Test extends PHPUnit_Framework_TestCase
         $checkResult = X509certPathValidate( $cert, $certAnchor, $certRoot );
         $this->assertTrue( $checkResult );
     }
-    
+
 }//CLASS
 
 ?>

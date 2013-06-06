@@ -39,5 +39,7 @@ define( 'ITS_INTERMEDIATE_FILEPATH', dirname(__FILE__) . '/cert/itunes_intermedi
 
 define( 'ITS_PURCHASERECEIPT_FILEPATH', dirname(__FILE__) . '/cert/itunes_PurchaseReceiptCertificate.pem');
 
+//define( 'TESTDATA', dirname(__FILE__) . '/data/test.transactionReceipt' );
+
 ?>
 
