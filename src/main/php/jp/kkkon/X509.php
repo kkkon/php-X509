@@ -141,10 +141,10 @@ function X509certPathValidate( $certLeafPEM=null, $certAnchorPEM=null, $certRoot
     {
         $certLeafDER = X509pem2der($certLeafPEM);
         echo 'certLeafDER' . var_export( unpack('H*', $certLeafDER ), true ) . PHP_EOL;
-        $ret = extractSignature($certLeafDER);
+        $ret = X509extractSignature($certLeafDER);
         if ( FALSE === $ret )
         {
-            echo 'extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
+            echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
             return false;
         }
         else
@@ -161,10 +161,10 @@ function X509certPathValidate( $certLeafPEM=null, $certAnchorPEM=null, $certRoot
     {
         $certAnchorDER = X509pem2der($certAnchorPEM);
         echo 'certAnchorDER' . var_export( unpack('H*', $certAnchorDER ), true ) . PHP_EOL;
-        $ret = extractSignature($certAnchorDER);
+        $ret = X509extractSignature($certAnchorDER);
         if ( FALSE === $ret )
         {
-            echo 'extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
+            echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
             return false;
         }
         else
@@ -181,10 +181,10 @@ function X509certPathValidate( $certLeafPEM=null, $certAnchorPEM=null, $certRoot
     {
         $certRootDER = X509pem2der($certRootPEM);
         echo 'certRootDER' . var_export( unpack('H*', $certRootDER ), true ) . PHP_EOL;
-        $ret = extractSignature($certRootDER);
+        $ret = X509extractSignature($certRootDER);
         if ( FALSE === $ret )
         {
-            echo 'extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
+            echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
             return false;
         }
         else
