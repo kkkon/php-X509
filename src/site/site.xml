@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="My Project">
+	<version position="left" />
+
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+		<version>1.0</version>
+	</skin>
+	<bannerLeft>
+		<name>php-maven.org</name>
+		<src>images/mylogo.png</src>
+		<href>http://www.mydomain.org/</href>
+	</bannerLeft>
+	<body>
+		<links>
+			<item name="Maven" href="http://maven.apache.org/" />
+			<item name="PHPUnit" href="http://www.phpunit.de/" />
+			<item name="doxygen" href="http://www.stack.nl/~dimitri/doxygen/" />
+			<item name="PHPDocumentor" href="http://www.phpdoc.org/" />
+			<item name="PHP-Maven" href="http://www.php-maven.org/" />
+		</links>
+
+		<menu name="Main">
+			<item name="Welcome" href="index.html" />
+		</menu>
+		<menu name="Some Menu">
+			<item name="Some Link" href="mylink.html" />
+			<item name="Some Other Link" href="mylink.html" />
+		</menu>
+		
+	</body>
+</project>

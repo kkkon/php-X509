@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.phpmaven</groupId>
+        <artifactId>php-parent-pom</artifactId>
+        <version>2.0.2</version>
+    </parent>
+    
+    <properties>
+        <phpmaven.release.number>2.0.2</phpmaven.release.number>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <phpunit.version>3.6.10</phpunit.version>
+    </properties>
+
+    <groupId>jp.kkkon</groupId>
+    <artifactId>php-X509</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>php</packaging>
+
+    <name>PHP 5 Library Project</name>
+    <description>Sample PHP 5 library project.</description>
+    <url>http://www.php-maven.org</url>
+    <inceptionYear>2008</inceptionYear>
+
+    <build>
+        <plugins>
+        	<plugin>
+                <groupId>org.phpmaven</groupId>
+                <artifactId>maven-php-plugin</artifactId>
+                <version>${phpmaven.plugin.version}</version>
+                
+                <configuration>
+                </configuration>
+            </plugin>
+            <!-- <plugin>
+                <groupId>org.sample</groupId>
+                <artifactId>own-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <extensions>true</extensions>
+            </plugin> -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.phpmaven</groupId>
+                            <artifactId>maven-php-plugin</artifactId>
+                            <version>${phpmaven.plugin.version}</version>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>phpdocumentor</report>
+                                        <report>phpunit-coverage</report>
+                                        <report>phpunit</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.phpunit</groupId>
+            <artifactId>PHPUnit</artifactId>
+            <version>${phpunit.version}</version>
+            <type>phar</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+</project>
