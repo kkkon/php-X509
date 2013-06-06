@@ -83,13 +83,14 @@ function X509checkSignature( $decodedCert, $certPEM )
             $ret = X509extractSignatureValue($decrypted);
             if ( FALSE === $ret )
             {
-                echo 'signature value parse fail' . PHP_EOL;
+                //echo 'signature value parse fail' . PHP_EOL;
+                return false;
             }
             else
             {
                 $decodedSignature = $ret;
-                echo 'PEM signature OID' . var_export( $ret['sigOID'], true ) . PHP_EOL;
-                echo 'PEM signature' . var_export( unpack('H*', $ret['signature']), true ) . PHP_EOL;
+                //echo 'PEM signature OID' . var_export( $ret['sigOID'], true ) . PHP_EOL;
+                //echo 'PEM signature' . var_export( unpack('H*', $ret['signature']), true ) . PHP_EOL;
             }
         }
 
@@ -100,7 +101,7 @@ function X509checkSignature( $decodedCert, $certPEM )
         case 'md2':
         case 'md4':
         case 'md5':
-            echo 'hash algorithm not allow' . PHP_EOL;
+            error_log( 'hash algorithm not allow' . PHP_EOL );
             $algo = null;
             break;
         default:
@@ -108,10 +109,15 @@ function X509checkSignature( $decodedCert, $certPEM )
             break;
         }
 
+        if ( null == $algo )
+        {
+            return false;
+        }
+
         $verifyResult = FALSE;
         {
             $calced_hash = hash($algo, $certRaw, true );
-            echo 'calced_hash: ' . var_export( unpack('H*',$calced_hash), TRUE ) . PHP_EOL;
+            //echo 'calced_hash: ' . var_export( unpack('H*',$calced_hash), TRUE ) . PHP_EOL;
             if ( $calced_hash === $decodedSignature['signature'] )
             {
                 $verifyResult = TRUE;
@@ -119,8 +125,8 @@ function X509checkSignature( $decodedCert, $certPEM )
         }
         if ( TRUE === $verifyResult )
         {
-            echo 'verify: OK' . PHP_EOL;
             $checkResult = true;
+            //echo 'verify: OK' . PHP_EOL;
         }
         else
         {
@@ -140,19 +146,19 @@ function X509certPathValidate( $certLeafPEM=null, $certAnchorPEM=null, $certRoot
     if ( null != $certLeafPEM )
     {
         $certLeafDER = X509pem2der($certLeafPEM);
-        echo 'certLeafDER' . var_export( unpack('H*', $certLeafDER ), true ) . PHP_EOL;
+        //echo 'certLeafDER' . var_export( unpack('H*', $certLeafDER ), true ) . PHP_EOL;
         $ret = X509extractSignature($certLeafDER);
         if ( FALSE === $ret )
         {
-            echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
+            //echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
             return false;
         }
         else
         {
             $certLeaf = $ret;
-            echo 'LEAF_PEM cert(DER)' . var_export( unpack('H*', $ret['cert']), true ) . PHP_EOL;
-            echo 'LEAF_PEM signature OID' . var_export( $ret['sigOID'], true ) . PHP_EOL;
-            echo 'LEAF_PEM signature(encrypted)' . var_export( unpack('H*', $ret['signature']), true ) . PHP_EOL;
+            //echo 'LEAF_PEM cert(DER)' . var_export( unpack('H*', $ret['cert']), true ) . PHP_EOL;
+            //echo 'LEAF_PEM signature OID' . var_export( $ret['sigOID'], true ) . PHP_EOL;
+            //echo 'LEAF_PEM signature(encrypted)' . var_export( unpack('H*', $ret['signature']), true ) . PHP_EOL;
         }
     }
     
@@ -160,19 +166,19 @@ function X509certPathValidate( $certLeafPEM=null, $certAnchorPEM=null, $certRoot
     if ( null != $certAnchorPEM )
     {
         $certAnchorDER = X509pem2der($certAnchorPEM);
-        echo 'certAnchorDER' . var_export( unpack('H*', $certAnchorDER ), true ) . PHP_EOL;
+        //echo 'certAnchorDER' . var_export( unpack('H*', $certAnchorDER ), true ) . PHP_EOL;
         $ret = X509extractSignature($certAnchorDER);
         if ( FALSE === $ret )
         {
-            echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
+            //echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
             return false;
         }
         else
         {
             $certAnchor = $ret;
-            echo 'ANCHOR_PEM cert(DER)' . var_export( unpack('H*', $ret['cert']), true ) . PHP_EOL;
-            echo 'ANCHOR_PEM signature OID' . var_export( $ret['sigOID'], true ) . PHP_EOL;
-            echo 'ANCHOR_PEM signature(encrypted)' . var_export( unpack('H*', $ret['signature']), true ) . PHP_EOL;
+            //echo 'ANCHOR_PEM cert(DER)' . var_export( unpack('H*', $ret['cert']), true ) . PHP_EOL;
+            //echo 'ANCHOR_PEM signature OID' . var_export( $ret['sigOID'], true ) . PHP_EOL;
+            //echo 'ANCHOR_PEM signature(encrypted)' . var_export( unpack('H*', $ret['signature']), true ) . PHP_EOL;
         }
     }
 
@@ -180,19 +186,19 @@ function X509certPathValidate( $certLeafPEM=null, $certAnchorPEM=null, $certRoot
     if ( null != $certRootPEM )
     {
         $certRootDER = X509pem2der($certRootPEM);
-        echo 'certRootDER' . var_export( unpack('H*', $certRootDER ), true ) . PHP_EOL;
+        //echo 'certRootDER' . var_export( unpack('H*', $certRootDER ), true ) . PHP_EOL;
         $ret = X509extractSignature($certRootDER);
         if ( FALSE === $ret )
         {
-            echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
+            //echo 'X509extractSignature fail' . __FILE__ . __LINE__ . PHP_EOL;
             return false;
         }
         else
         {
             $certRoot = $ret;
-            echo 'ROOT_PEM cert(DER)' . var_export( unpack('H*', $ret['cert']), true ) . PHP_EOL;
-            echo 'ROOT_PEM signature OID' . var_export( $ret['sigOID'], true ) . PHP_EOL;
-            echo 'ROOT_PEM signature(encrypted)' . var_export( unpack('H*', $ret['signature']), true ) . PHP_EOL;
+            //echo 'ROOT_PEM cert(DER)' . var_export( unpack('H*', $ret['cert']), true ) . PHP_EOL;
+            //echo 'ROOT_PEM signature OID' . var_export( $ret['sigOID'], true ) . PHP_EOL;
+            //echo 'ROOT_PEM signature(encrypted)' . var_export( unpack('H*', $ret['signature']), true ) . PHP_EOL;
         }
     }
 
@@ -255,7 +261,7 @@ function getHashAlgorithmFromOID($oid)
         $algo = 'sha512';
         break;
     default:
-        echo 'unknown hash OID:' . $oid . __FILE__ . __LINE__ . PHP_EOL;
+        error_log( 'unknown hash OID:' . $oid . __FILE__ . __LINE__ . PHP_EOL );
         break;
     }
     
@@ -304,7 +310,7 @@ function X509extractSignature($der)
         }
     }
 
-    echo 'tbsCertificate:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
+    //echo 'tbsCertificate:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
     if ( 0x30 !== ord($der[$index]) )
     {
         return FALSE;
@@ -337,7 +343,7 @@ function X509extractSignature($der)
         }
     }
 
-    echo 'signatureAlgorithm:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
+    //echo 'signatureAlgorithm:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
     if ( 0x30 !== ord($der[$index]) )
     {
         return FALSE;
@@ -419,13 +425,13 @@ function X509extractSignature($der)
                         }
                     }
                 }
-                echo ' signatureAlgoOID:' . $indexOID . var_export( $sigAlgoOID, true ) . PHP_EOL;
+                //echo ' signatureAlgoOID:' . $indexOID . var_export( $sigAlgoOID, true ) . PHP_EOL;
                 $result['sigOID'] = $sigAlgoOID;
             }
         }
     }
 
-    echo 'signatureValue:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
+    //echo 'signatureValue:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
     /*
      * Class: 00 Univaersal
      * P/C: 0 Primitive
@@ -509,7 +515,7 @@ function X509extractSignatureValue($der)
         }
     }
 
-    echo 'sig:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
+    //echo 'sig:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
     if ( 0x30 !== ord($der[$index]) )
     {
         return FALSE;
@@ -543,7 +549,7 @@ function X509extractSignatureValue($der)
 
         if ( 0 < $indexOID )
         {
-            echo ' signatureAlgoOID:' . $indexOID . var_export( unpack('H*', substr($der, $indexOID) ), true ) . PHP_EOL;
+            //echo ' signatureAlgoOID:' . $indexOID . var_export( unpack('H*', substr($der, $indexOID) ), true ) . PHP_EOL;
             if ( 0x06 == ord($der[$indexOID]) )
             {
                 $oidLen = 0;
@@ -591,13 +597,13 @@ function X509extractSignatureValue($der)
                         }
                     }
                 }
-                echo ' signatureAlgoOID:' . $indexOID . var_export( $sigAlgoOID, true ) . PHP_EOL;
+                //echo ' signatureAlgoOID:' . $indexOID . var_export( $sigAlgoOID, true ) . PHP_EOL;
                 $result['sigOID'] = $sigAlgoOID;
             }
         }
     }
 
-    echo 'signatureValue:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
+    //echo 'signatureValue:' . $index . var_export( unpack('H*', substr($der, $index) ), true ) . PHP_EOL;
     /*
      * Class: 00 Univaersal
      * P/C: 0 Primitive
