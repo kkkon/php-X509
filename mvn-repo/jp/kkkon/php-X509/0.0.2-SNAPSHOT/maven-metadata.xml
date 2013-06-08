@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>jp.kkkon</groupId>
+  <artifactId>php-X509</artifactId>
+  <version>0.0.2-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20130608.202817</timestamp>
+      <buildNumber>2</buildNumber>
+    </snapshot>
+    <lastUpdated>20130608202817</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>phar</extension>
+        <value>0.0.2-20130608.202817-2</value>
+        <updated>20130608202817</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.0.2-20130608.202817-2</value>
+        <updated>20130608202817</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
