@@ -12,17 +12,24 @@
         <phpmaven.release.number>2.0.2</phpmaven.release.number>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <phpunit.version>3.6.10</phpunit.version>
+
+        <github.global.server>github</github.global.server>
     </properties>
 
     <groupId>jp.kkkon</groupId>
     <artifactId>php-X509</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>php</packaging>
 
     <name>PHP 5 X509 Library Project</name>
     <description>PHP 5 X509 Library Project.</description>
     <url>https://github.com/kkkon/php-X509</url>
     <inceptionYear>2013</inceptionYear>
+
+    <issueManagement>
+        <url>https://github.com/kkkon/php-X509/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
 
   <licenses>
     <license>
@@ -32,6 +39,13 @@
     </license>
   </licenses>
 
+  <scm>
+    <connection>scm:git:ssh://github.com/kkkon/php-X509.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/kkkon/php-X509.git</developerConnection>
+    <url>https://github.com/kkkon/php-X509</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <developers>
     <developer>
       <id>kkkon</id>
@@ -40,12 +54,6 @@
   </developers>
 
 
-  <scm>
-    <connection>scm:git:ssh://github.com/kkkon/php-X509.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/kkkon/php-X509.git</developerConnection>
-    <url>https://github.com/kkkon/php-X509</url>
-    <tag>HEAD</tag>
-  </scm>
 
     <build>
         <plugins>
@@ -66,11 +74,55 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file:///${project.build.directory}/mvn-repo</altDeploymentRepository>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.8</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.artifactId} ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+                    <branch>refs/heads/gh-pages</branch>
+                    <merge>true</merge>
+                    <path>mvn-repo</path>
+                    <dryRun>true</dryRun>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.0</version>
                 <inherited>true</inherited>
                 <configuration>
                     <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.6</version>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>index</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
                         <plugin>
                             <groupId>org.phpmaven</groupId>
                             <artifactId>maven-php-plugin</artifactId>
@@ -78,7 +130,7 @@
                             <reportSets>
                                 <reportSet>
                                     <reports>
-                                        <report>phpdocumentor</report>
+                                        <!--<report>phpdocumentor</report>-->
                                         <report>phpunit-coverage</report>
                                         <report>phpunit</report>
                                     </reports>
