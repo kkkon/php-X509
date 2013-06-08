@@ -1,28 +1,32 @@
                                       -----
-                                      MY LIBRARY
+                                      php-X509 LIBRARY
                                       -----
-                                      MY NAME
+                                      Kiyofumi Kondoh
                                       -----
-                                      14-Jun-2010
+                                      2013-06-09
                                       -----
 
+PHP X.509 certificate (SSL) validate
 
-my project
+  Validate X.509 (SSL) certificates, implemented PHP only.
 
-* Introduction
+  Licensed under {{{http://www.opensource.org/licenses/mit-license.php}The MIT license}}.
 
-  This is a meaningful sentence.
-  
-* Hello World
 
-** My chapter
+  * Main Purpose
 
-  {{{read-more.html}Read more}}
+--------------------
 
-** My other chapter
+    iTune Store Receipt have Certificate(DER).  
+    But PHP's openssl doesn't support Certificate Path Validation(Certificate Chain).
 
-  amazing...
-  
-* Bye Bye
-  
-  I am no going to sleep
+    This Library support Certificate Path Validation.
+
+    e.g.
+    > Root CA: /C=US/O=Apple Inc./OU=Apple Certification Authority/CN=Apple Root CA  
+    > Intermidiate CA: /C=US/O=Apple Inc./OU=Apple Certification Authority/CN=Apple iTunes Store Certification Authority  
+    > Leaf CA: /CN=PurchaseReceiptCertificate/OU=Apple iTunes Store/O=Apple Inc./C=US  
+
+    But This Library doesn't support full validation.
+
+--------------------
