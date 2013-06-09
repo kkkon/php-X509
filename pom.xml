@@ -15,6 +15,7 @@
         <phpunit.version>3.6.10</phpunit.version>
 
         <github.global.server>github_php-X509</github.global.server>
+        <dryRun>true</dryRun>
     </properties>
 
     <groupId>jp.kkkon</groupId>
@@ -93,7 +94,7 @@
                     <branch>refs/heads/gh-pages</branch>
                     <merge>true</merge>
                     <path>maven</path>
-                    <dryRun>true</dryRun>
+                    <dryRun>${dryRun}</dryRun>
                 </configuration>
                 <executions>
                     <execution>
@@ -148,7 +149,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.4.1</version>
                 <configuration>
-                    <dryRun>true</dryRun>
+                    <dryRun>${dryRun}</dryRun>
                 </configuration>
                 <dependencies>
                     <dependency>
