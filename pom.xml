@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <phpunit.version>3.6.10</phpunit.version>
 
-        <github.global.server>github</github.global.server>
+        <github.global.server>github_php-X509</github.global.server>
     </properties>
 
     <groupId>jp.kkkon</groupId>
