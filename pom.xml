@@ -174,13 +174,13 @@
 
 
     <repositories>
-        <!-- -->
+        <!--
         <repository>
             <id>release-repo1.php-maven.org</id>
             <name>PHP-Maven 2 Release Repository</name>
             <url>http://repos.php-maven.org/releases</url>
         </repository>
-        <!-- -->
+        -->
 
         <!-- -->
         <repository>
@@ -201,13 +201,13 @@
     </repositories>
 
     <pluginRepositories>
-        <!-- -->
+        <!--
         <pluginRepository>
             <id>release-repo1.php-maven.org</id>
             <name>PHP-Maven 2 Release Repository</name>
             <url>http://repos.php-maven.org/releases</url>
         </pluginRepository>
-        <!-- -->
+        -->
 
         <!-- -->
         <pluginRepository>
