@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <plugins>
+    <plugin>
+      <name>PHP 5 X509 Library Project</name>
+      <prefix>php-X509</prefix>
+      <artifactId>php-X509</artifactId>
+    </plugin>
+  </plugins>
+</metadata>

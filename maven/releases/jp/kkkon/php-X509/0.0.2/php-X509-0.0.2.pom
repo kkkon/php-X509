@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.phpmaven</groupId>
+        <artifactId>php-parent-pom</artifactId>
+        <version>2.0.2</version>
+    </parent>
+    
+    <properties>
+        <phpmaven.release.number>2.0.2</phpmaven.release.number>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <phpunit.version>3.6.10</phpunit.version>
+
+        <github.global.server>github_php-X509</github.global.server>
+        <dryRun>true</dryRun>
+    </properties>
+
+    <groupId>jp.kkkon</groupId>
+    <artifactId>php-X509</artifactId>
+    <version>0.0.2</version>
+    <packaging>php</packaging>
+
+    <name>PHP 5 X509 Library Project</name>
+    <description>PHP 5 X509 Library Project.</description>
+    <url>https://github.com/kkkon/php-X509</url>
+    <inceptionYear>2013</inceptionYear>
+
+    <issueManagement>
+        <url>https://github.com/kkkon/php-X509/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+  <licenses>
+    <license>
+      <name>The MIT license</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:ssh://github.com/kkkon/php-X509.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/kkkon/php-X509.git</developerConnection>
+    <url>https://github.com/kkkon/php-X509</url>
+    <tag>php-X509-0.0.2</tag>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>kkkon</id>
+      <name>Kiyofumi Kondoh</name>
+    </developer>
+  </developers>
+
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.phpmaven</groupId>
+                <artifactId>maven-php-plugin</artifactId>
+                <version>${phpmaven.plugin.version}</version>
+                
+                <configuration>
+                </configuration>
+            </plugin>
+            <!-- <plugin>
+                <groupId>org.sample</groupId>
+                <artifactId>own-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <extensions>true</extensions>
+            </plugin> -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file:///${project.build.directory}/site/releases</altDeploymentRepository>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.8</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.artifactId} ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <outputDirectory>${project.build.directory}/site</outputDirectory>
+                    <branch>refs/heads/gh-pages</branch>
+                    <merge>true</merge>
+                    <path>maven</path>
+                    <dryRun>${dryRun}</dryRun>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <skipDeploy>true</skipDeploy>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.6</version>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>index</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.phpmaven</groupId>
+                            <artifactId>maven-php-plugin</artifactId>
+                            <version>${phpmaven.plugin.version}</version>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <!--<report>phpdocumentor</report>-->
+                                        <report>phpunit-coverage</report>
+                                        <report>phpunit</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <dryRun>${dryRun}</dryRun>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <version>1.8.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.phpunit</groupId>
+            <artifactId>PHPUnit</artifactId>
+            <version>${phpunit.version}</version>
+            <type>phar</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+
+    <repositories>
+        <!--
+        <repository>
+            <id>release-repo1.php-maven.org</id>
+            <name>PHP-Maven 2 Release Repository</name>
+            <url>http://repos.php-maven.org/releases</url>
+        </repository>
+        -->
+
+        <!-- -->
+        <repository>
+          <id>sxgio.servehttp.com</id>
+          <name>PHP-Maven 2 Release Repository</name>
+          <url>http://sxgio.servehttp.com/nexus/content/repositories/release-repo1.php-maven.org</url>
+        </repository>
+        <!-- -->
+
+        <!--
+        <repository>
+            <id>kkkon.sakura.ne.jp</id>
+            <name>PHP-Maven 2 Release Repository</name>
+            <url>http://kkkon.sakura.ne.jp/maven/phpmaven</url>
+        </repository>
+        -->
+
+    </repositories>
+
+    <pluginRepositories>
+        <!--
+        <pluginRepository>
+            <id>release-repo1.php-maven.org</id>
+            <name>PHP-Maven 2 Release Repository</name>
+            <url>http://repos.php-maven.org/releases</url>
+        </pluginRepository>
+        -->
+
+        <!-- -->
+        <pluginRepository>
+            <id>sxgio.servehttp.com</id>
+            <name>PHP-Maven 2 Release Repository</name>
+            <url>http://sxgio.servehttp.com/nexus/content/repositories/release-repo1.php-maven.org</url>
+        </pluginRepository>
+        <!-- -->
+
+        <!--
+        <pluginRepository>
+            <id>kkkon.sakura.ne.jp</id>
+            <name>PHP-Maven 2 Release Repository</name>
+            <url>http://kkkon.sakura.ne.jp/maven/phpmaven</url>
+        </pluginRepository>
+        -->
+
+    </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <id>release-kkkon.github.io</id>
+            <name>PHP X509 Maven Release Repository</name>
+            <url>http://kkkon.github.io/php-X509/maven/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot-kkkon.github.io</id>
+            <name>PHP X509 Maven Snapshot Repository</name>
+            <url>http://kkkon.github.io/php-X509/maven/snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>kkkon.github.io</id>
+            <name>PHP X509 Maven Site</name>
+            <url>http://kkkon.github.io/php-X509</url>
+        </site>
+    </distributionManagement>
+</project>
