@@ -149,6 +149,7 @@
                 <version>2.4.1</version>
                 <configuration>
                     <dryRun>${dryRun}</dryRun>
+                    <goals>deploy</goals>
                 </configuration>
                 <dependencies>
                     <dependency>
